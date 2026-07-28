@@ -424,6 +424,20 @@
   const card=()=>{const c=track.querySelector('.clip');return c?c.offsetWidth+20:256;};
   document.getElementById('next').addEventListener('click',()=>track.scrollBy({left:card()*2,behavior:reduced?'auto':'smooth'}));
   document.getElementById('prev').addEventListener('click',()=>track.scrollBy({left:-card()*2,behavior:reduced?'auto':'smooth'}));
+
+  // hover to unmute (desktop) / tap to unmute (mobile); only one plays sound at a time
+  const allVids = Array.from(document.querySelectorAll('.clip video'));
+  function soloUnmute(v){
+    allVids.forEach(o=>{ if(o!==v) o.muted=true; });
+    v.muted=false;
+    const p=v.play(); if(p&&p.catch) p.catch(()=>{});
+  }
+  document.querySelectorAll('.clip').forEach(clip=>{
+    const v=clip.querySelector('video'); if(!v) return;
+    clip.addEventListener('mouseenter',()=>soloUnmute(v));
+    clip.addEventListener('mouseleave',()=>{ v.muted=true; });
+    clip.addEventListener('click',()=>{ if(v.muted) soloUnmute(v); else v.muted=true; });
+  });
 </script>
 </body>
 </html>
