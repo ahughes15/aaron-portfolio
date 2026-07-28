@@ -176,6 +176,8 @@
   .sticker:nth-child(3n){background:var(--cobalt);color:#fff;border-color:var(--cobalt)}
   .sticker:nth-child(4n){background:var(--pink);color:#fff;border-color:var(--pink)}
   .sticker{transform:rotate(var(--r,0deg))}
+  .about-side{display:flex;flex-direction:column;gap:32px}
+  .side-label{font-family:var(--font-display);font-weight:700;font-size:21px;letter-spacing:-0.01em;color:var(--ink);margin-bottom:18px;display:inline-block;border-bottom:3px solid var(--pink);padding-bottom:6px}
   @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:36px}}
 
   /* ---------- FOOTER CTA ---------- */
@@ -337,15 +339,34 @@
       <p>My work runs the full creator lifecycle: vetting, contracts, usage rights, deliverables, and live events. I've been the primary point of contact for talent agencies representing names like <span class="cobalt">Paris Hilton</span> and NFL players, and I build the kind of relationships that come back.</p>
       <p>Fluent in Mandarin, shaped by years working across the US and China. I think in both the data and the story.</p>
     </div>
-    <div class="stickers r-up">
-      <span class="sticker" style="--r:-3deg">Mandarin</span>
-      <span class="sticker" style="--r:2deg">Deal Structuring</span>
-      <span class="sticker" style="--r:-1deg">Salesforce</span>
-      <span class="sticker" style="--r:3deg">CreatorIQ</span>
-      <span class="sticker" style="--r:-2deg">TikTok Creator Mktplace</span>
-      <span class="sticker" style="--r:1deg">After Effects</span>
-      <span class="sticker" style="--r:-3deg">Marathoner</span>
-      <span class="sticker" style="--r:2deg">Photography</span>
+    <div class="about-side r-up">
+      <div>
+        <div class="side-label">Skills</div>
+        <div class="stickers">
+          <span class="sticker">Fluent in Mandarin</span>
+          <span class="sticker">Contract &amp; Deal Structuring</span>
+          <span class="sticker">End-to-End Campaign Management</span>
+          <span class="sticker">Intentional AI Integration</span>
+          <span class="sticker">Adobe Products</span>
+          <span class="sticker">Salesforce</span>
+          <span class="sticker">Google Analytics</span>
+          <span class="sticker">CreatorIQ</span>
+          <span class="sticker">HubSpot</span>
+          <span class="sticker">TikTok Creator Marketplace</span>
+        </div>
+      </div>
+      <div>
+        <div class="side-label">Interests</div>
+        <div class="stickers">
+          <span class="sticker" style="--r:-3deg">Blender &amp; After Effects</span>
+          <span class="sticker" style="--r:2deg">Marathon Training</span>
+          <span class="sticker" style="--r:-1deg">Photography</span>
+          <span class="sticker" style="--r:3deg">Embroidery</span>
+          <span class="sticker" style="--r:-2deg">Medieval History</span>
+          <span class="sticker" style="--r:1deg">Film</span>
+          <span class="sticker" style="--r:-2deg">Miserable Detroit Sports Fan</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
