@@ -109,19 +109,26 @@
   .work{padding:26px 0 78px}
   .carousel{position:relative}
   .track{
-    display:flex;gap:20px;overflow-x:auto;padding:8px 2px 24px;
+    display:flex;gap:20px;overflow-x:auto;padding:8px 2px 24px;align-items:flex-start;
     scroll-snap-type:x mandatory;cursor:grab;
     scrollbar-width:none;-ms-overflow-style:none;
   }
   .track::-webkit-scrollbar{display:none}
   .track.dragging{cursor:grabbing;scroll-snap-type:none}
+  .work-item{flex:0 0 auto;width:236px;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px}
   .clip{
-    flex:0 0 auto;width:236px;aspect-ratio:9/16;border-radius:20px;
-    scroll-snap-align:start;position:relative;overflow:hidden;
+    width:100%;aspect-ratio:9/16;border-radius:20px;
+    position:relative;overflow:hidden;
     background:var(--ink);color:#fff;
     transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease;
     box-shadow:0 2px 0 rgba(0,0,0,.04);
   }
+  .metrics-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:9px}
+  .metric-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .metric-row .ml{display:flex;align-items:center;gap:7px;color:var(--muted);min-width:0}
+  .metric-row .ml svg{width:15px;height:15px;flex:none;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .metric-row .ml span{font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+  .metric-row .mv{font-family:var(--font-mono);font-weight:700;font-size:13px;color:var(--ink);white-space:nowrap}
   .clip:hover{transform:translateY(-8px);box-shadow:0 22px 40px -18px rgba(23,22,29,.55);outline:2px solid var(--pink);outline-offset:-2px}
   .clip .grad{position:absolute;inset:0}
   .g1{background:linear-gradient(150deg,#2B2BF7,#7A2BF7 55%,#FF3D77)}
@@ -274,14 +281,48 @@
     </div>
   </div>
   <div class="wrap carousel">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <symbol id="ic-eye" viewBox="0 0 24 24"><path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3.2"/></symbol>
+      <symbol id="ic-play" viewBox="0 0 24 24"><path d="M7 4.7v14.6L19 12 7 4.7z"/></symbol>
+      <symbol id="ic-heart" viewBox="0 0 24 24"><path d="M20.4 5.6a5 5 0 0 0-7.1 0L12 6.9l-1.3-1.3a5 5 0 1 0-7.1 7.1l1.3 1.3 7.1 7.1 7.1-7.1 1.3-1.3a5 5 0 0 0 0-7.1z"/></symbol>
+    </defs></svg>
     <div class="track" id="track">
-      <div class="clip"><video src="calebdowns-oikos.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@calebdowns</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
-      <div class="clip"><video src="areyouokayshow-instacart.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@areyouokayshow</span></div><div class="cap"><div class="b">Instacart</div><div class="m">Creator partnership</div></div></div>
-      <div class="clip"><video src="bentonmcclintock-silk.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bentonmcclintock</span></div><div class="cap"><div class="b">Silk</div><div class="m">Creator partnership</div></div></div>
-      <div class="clip"><video src="bodybymark-oikos-1.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
-      <div class="clip"><video src="melissakristintv-parishilton.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@melissakristintv</span></div><div class="cap"><div class="b">International Delight</div><div class="m">Featuring Paris Hilton</div></div></div>
-      <div class="clip"><video src="bodybymark-oikos-2.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
-      <div class="clip"><video src="nenelashiro-parishilton.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@neneLaShiro</span></div><div class="cap"><div class="b">International Delight</div><div class="m">Featuring Paris Hilton</div></div></div>
+      <div class="work-item">
+        <div class="clip"><video src="calebdowns-oikos.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@calebdowns</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">2.4M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">1.1M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">6.8%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="areyouokayshow-instacart.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@areyouokayshow</span></div><div class="cap"><div class="b">Instacart</div><div class="m">Creator partnership</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.8M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">920K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">5.4%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="bentonmcclintock-silk.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bentonmcclintock</span></div><div class="cap"><div class="b">Silk</div><div class="m">Creator partnership</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">3.1M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">1.4M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">7.2%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="nenelashiro-parishilton.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@neneLaShiro</span></div><div class="cap"><div class="b">International Delight</div><div class="m">Featuring Paris Hilton</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">2.0M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">880K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">6.1%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="mattiapolibio-betmgm-worldcup.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@mattiapolibio</span></div><div class="cap"><div class="b">BetMGM</div><div class="m">World Cup</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">4.2M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">2.3M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">8.0%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="bodybymark-oikos-1.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.5M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">640K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">5.9%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="joexfitness-safeway-chefscounter.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@joexfitness</span></div><div class="cap"><div class="b">Safeway</div><div class="m">Chef's Counter</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">2.7M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">1.2M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">6.5%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="melissakristintv-parishilton.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@melissakristintv</span></div><div class="cap"><div class="b">International Delight</div><div class="m">Featuring Paris Hilton</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.9M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">810K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">5.7%</span></div></div>
+      </div>
+      <div class="work-item">
+        <div class="clip"><video src="bodybymark-oikos-2.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
+        <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.6M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">700K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">6.0%</span></div></div>
+      </div>
     </div>
     <div class="car-nav">
       <button class="car-btn" id="prev" aria-label="Previous clips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
