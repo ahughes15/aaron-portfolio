@@ -487,10 +487,15 @@
 
   // hover to unmute (desktop) / tap to unmute (mobile); only one plays sound at a time
   const allVids = Array.from(document.querySelectorAll('.clip video'));
+  // safety net: some browsers pause a clip if it's unmuted before you've clicked
+  // anything on the page. if that happens, resume it muted so it never freezes.
+  allVids.forEach(v=>{
+    v.addEventListener('pause',()=>{ if(document.hidden) return; v.muted=true; v.play().catch(()=>{}); });
+  });
   function soloUnmute(v){
     allVids.forEach(o=>{ if(o!==v) o.muted=true; });
     v.muted=false;
-    const p=v.play(); if(p&&p.catch) p.catch(()=>{});
+    v.play().catch(()=>{});
   }
   document.querySelectorAll('.clip').forEach(clip=>{
     const v=clip.querySelector('video'); if(!v) return;
