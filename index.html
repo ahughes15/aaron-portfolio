@@ -436,6 +436,37 @@
     clip.addEventListener('mouseleave',()=>{ v.muted=true; });
     clip.addEventListener('click',()=>{ if(v.muted) soloUnmute(v); else v.muted=true; });
   });
+
+  // "can't scroll past" — headline resists your cursor and rubberbands back home
+  (function(){
+    const h1 = document.querySelector('.hero h1');
+    if(!h1 || reduced) return;
+    let x=0,y=0,vx=0,vy=0,raf=null,active=false,lastX=null,lastY=null;
+    const stiffness=0.075, damping=0.84, push=0.45, maxOff=44;
+    function frame(){
+      vx += -stiffness*x; vx *= damping; x += vx;
+      vy += -stiffness*y; vy *= damping; y += vy;
+      x = Math.max(-maxOff, Math.min(maxOff, x));
+      y = Math.max(-maxOff, Math.min(maxOff, y));
+      h1.style.transform = 'translate('+x.toFixed(2)+'px,'+y.toFixed(2)+'px)';
+      if(active || Math.abs(x)>0.08 || Math.abs(y)>0.08 || Math.abs(vx)>0.08 || Math.abs(vy)>0.08){
+        raf = requestAnimationFrame(frame);
+      } else {
+        h1.style.transform = 'translate(0,0)'; raf = null;
+      }
+    }
+    function ensure(){ if(!raf) raf = requestAnimationFrame(frame); }
+    h1.addEventListener('pointermove',(e)=>{
+      active = true;
+      if(lastX!==null){
+        vx += Math.max(-9,Math.min(9,e.clientX-lastX))*push;
+        vy += Math.max(-9,Math.min(9,e.clientY-lastY))*push;
+      }
+      lastX=e.clientX; lastY=e.clientY; ensure();
+    });
+    h1.addEventListener('pointerenter',()=>{ lastX=lastY=null; });
+    h1.addEventListener('pointerleave',()=>{ active=false; lastX=lastY=null; ensure(); });
+  })();
 </script>
 </body>
 </html>
