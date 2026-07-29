@@ -170,6 +170,20 @@
   .case .body .view{margin-top:16px;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;color:var(--ink)}
   .case .body .view span{transition:transform .25s ease}
   .case:hover .body .view span{transform:translateX(5px)}
+  .case[data-images]{cursor:pointer}
+  .case .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  /* project lightbox */
+  .pmodal{position:fixed;inset:0;z-index:200;display:none}
+  .pmodal.open{display:block}
+  .pmodal-backdrop{position:absolute;inset:0;background:rgba(15,14,20,.74);backdrop-filter:blur(3px)}
+  .pmodal-panel{position:relative;max-width:820px;margin:5vh auto;max-height:90vh;overflow-y:auto;background:var(--paper);border-radius:20px;padding:34px 34px 40px}
+  .pmodal-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:none;background:var(--ink);color:var(--paper);font-size:15px;cursor:pointer;z-index:3}
+  .pmodal .k{font-family:var(--font-mono);font-size:11px;color:var(--cobalt);text-transform:uppercase;letter-spacing:.05em}
+  .pmodal h3{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,3.5vw,34px);letter-spacing:-0.02em;margin-top:8px;line-height:1.05;max-width:90%}
+  .pmodal .pm-desc{margin-top:12px;font-size:15.5px;color:#3a3944;max-width:60ch}
+  .pmodal-imgs{margin-top:24px;display:flex;flex-direction:column;gap:16px}
+  .pmodal-imgs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block}
+  @media(max-width:600px){.pmodal-panel{margin:0;max-height:100vh;border-radius:0;padding:24px 18px 32px}}
   @media(max-width:900px){.case-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
 
   /* ---------- ABOUT ---------- */
@@ -340,13 +354,13 @@
       <div class="idx">(02) — Decks &amp; strategy</div>
     </div>
     <div class="case-grid">
-      <article class="case r-up">
-        <div class="cover g1"><span class="ph">deck cover</span></div>
+      <article class="case r-up" data-kicker="Translation &amp; Design" data-title="Ah Po Hot Pot" data-desc="Chinese-to-English translation and redesign of digital (WeChat) and in-store menus." data-images="ahpo-menuitems1.jpeg,ahpo-menuitems2.jpeg">
+        <div class="cover"><img src="ahpo-heroshot.png" alt="Ah Po Hot Pot menu"></div>
         <div class="body">
-          <div class="k">Ulike — Beauty Tech</div>
-          <h3>London Underground OOH Launch</h3>
-          <p>+24% brand awareness and 14K+ searches in week one, from strategy through to asset creation for the 2024 UK launch.</p>
-          <div class="view">View deck <span>→</span></div>
+          <div class="k">Translation &amp; Design</div>
+          <h3>Ah Po Hot Pot</h3>
+          <p>Chinese-to-English translation and redesign of digital (WeChat) and in-store menus.</p>
+          <div class="view">View project <span>→</span></div>
         </div>
       </article>
       <article class="case r-up">
@@ -411,6 +425,18 @@
     </div>
   </div>
 </section>
+
+<!-- PROJECT LIGHTBOX -->
+<div class="pmodal" id="pmodal" aria-hidden="true">
+  <div class="pmodal-backdrop" data-close></div>
+  <div class="pmodal-panel" role="dialog" aria-modal="true" aria-labelledby="pm-title">
+    <button class="pmodal-close" data-close aria-label="Close">&#10005;</button>
+    <div class="k" id="pm-kicker"></div>
+    <h3 id="pm-title"></h3>
+    <p class="pm-desc" id="pm-desc"></p>
+    <div class="pmodal-imgs" id="pm-imgs"></div>
+  </div>
+</div>
 
 <!-- FOOTER / CTA -->
 <footer id="contact">
@@ -533,6 +559,32 @@
     });
     h1.addEventListener('pointerenter',()=>{ lastX=lastY=null; });
     h1.addEventListener('pointerleave',()=>{ active=false; lastX=lastY=null; ensure(); });
+  })();
+
+  // project lightbox: click a case card to open its images
+  (function(){
+    const modal=document.getElementById('pmodal'); if(!modal) return;
+    const panel=modal.querySelector('.pmodal-panel');
+    const imgs=document.getElementById('pm-imgs');
+    function open(card){
+      document.getElementById('pm-kicker').textContent=card.dataset.kicker||'';
+      document.getElementById('pm-title').textContent=card.dataset.title||'';
+      document.getElementById('pm-desc').textContent=card.dataset.desc||'';
+      imgs.innerHTML='';
+      (card.dataset.images||'').split(',').map(s=>s.trim()).filter(Boolean).forEach(src=>{
+        const im=document.createElement('img'); im.src=src; im.alt=card.dataset.title||'project image'; im.loading='lazy'; imgs.appendChild(im);
+      });
+      panel.scrollTop=0;
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    }
+    function close(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+    document.querySelectorAll('.case[data-images]').forEach(card=>{
+      card.setAttribute('tabindex','0');
+      card.addEventListener('click',()=>open(card));
+      card.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(card); } });
+    });
+    modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') close(); });
   })();
 </script>
 </body>
