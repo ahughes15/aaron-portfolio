@@ -176,13 +176,14 @@
   .pmodal{position:fixed;inset:0;z-index:200;display:none}
   .pmodal.open{display:block}
   .pmodal-backdrop{position:absolute;inset:0;background:rgba(15,14,20,.74);backdrop-filter:blur(3px)}
-  .pmodal-panel{position:relative;max-width:820px;margin:5vh auto;max-height:90vh;overflow-y:auto;background:var(--paper);border-radius:20px;padding:34px 34px 40px}
+  .pmodal-panel{position:relative;max-width:1100px;width:92vw;margin:3vh auto;max-height:94vh;overflow-y:auto;background:var(--paper);border-radius:20px;padding:34px 34px 40px}
   .pmodal-close{position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;border:none;background:var(--ink);color:var(--paper);font-size:15px;cursor:pointer;z-index:3}
   .pmodal .k{font-family:var(--font-mono);font-size:11px;color:var(--cobalt);text-transform:uppercase;letter-spacing:.05em}
   .pmodal h3{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,3.5vw,34px);letter-spacing:-0.02em;margin-top:8px;line-height:1.05;max-width:90%}
   .pmodal .pm-desc{margin-top:12px;font-size:15.5px;color:#3a3944;max-width:60ch}
   .pmodal-imgs{margin-top:24px;display:flex;flex-direction:column;gap:16px}
-  .pmodal-imgs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block}
+  .pmodal-imgs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block;opacity:0;transition:opacity .4s ease;background:var(--paper-2)}
+  .pmodal-imgs img.loaded{opacity:1}
   @media(max-width:600px){.pmodal-panel{margin:0;max-height:100vh;border-radius:0;padding:24px 18px 32px}}
   @media(max-width:900px){.case-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
 
@@ -572,7 +573,9 @@
       document.getElementById('pm-desc').textContent=card.dataset.desc||'';
       imgs.innerHTML='';
       (card.dataset.images||'').split(',').map(s=>s.trim()).filter(Boolean).forEach(src=>{
-        const im=document.createElement('img'); im.src=src; im.alt=card.dataset.title||'project image'; im.loading='lazy'; imgs.appendChild(im);
+        const im=document.createElement('img'); im.src=src; im.alt=card.dataset.title||'project image'; im.loading='lazy';
+        im.addEventListener('load',()=>im.classList.add('loaded'));
+        imgs.appendChild(im);
       });
       panel.scrollTop=0;
       modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
