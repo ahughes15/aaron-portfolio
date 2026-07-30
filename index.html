@@ -89,6 +89,9 @@
   .marquee:hover .marquee-track{animation-play-state:paused}
   .marquee span{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:-0.01em;color:var(--ink);opacity:.62}
   .marquee .star{color:var(--pink);opacity:1}
+  .marquee .brandItem{position:relative;display:inline-flex;align-items:center;opacity:1}
+  .marquee .brandItem img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:64px;width:auto;opacity:.12;filter:grayscale(1);z-index:0;pointer-events:none}
+  .marquee .brandItem .bt{position:relative;z-index:1}
   @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* ---------- METRICS ---------- */
@@ -275,8 +278,8 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Verizon</span><span class="star">✦</span><span>Chevy</span><span class="star">✦</span><span>MGM</span><span class="star">✦</span><span>DoorDash</span><span class="star">✦</span><span>Paris Hilton</span><span class="star">✦</span><span>NFL Talent</span><span class="star">✦</span>
-      <span>Verizon</span><span class="star">✦</span><span>Chevy</span><span class="star">✦</span><span>MGM</span><span class="star">✦</span><span>DoorDash</span><span class="star">✦</span><span>Paris Hilton</span><span class="star">✦</span><span>NFL Talent</span><span class="star">✦</span>
+      <span>Verizon</span><span class="star">✦</span><span>Chevy</span><span class="star">✦</span><span>DoorDash</span><span class="star">✦</span><span>NFL</span><span class="star">✦</span><span class="brandItem"><img src="logo-ticketmaster.png" alt=""><span class="bt">Ticketmaster</span></span><span class="star">✦</span>
+      <span>Verizon</span><span class="star">✦</span><span>Chevy</span><span class="star">✦</span><span>DoorDash</span><span class="star">✦</span><span>NFL</span><span class="star">✦</span><span class="brandItem"><img src="logo-ticketmaster.png" alt=""><span class="bt">Ticketmaster</span></span><span class="star">✦</span>
     </div>
   </div>
 </header>
