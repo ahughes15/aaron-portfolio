@@ -172,6 +172,22 @@
   .case:hover .body .view span{transform:translateX(5px)}
   .case[data-images]{cursor:pointer}
   .case .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  /* deck viewer — click-through slide presentation */
+  .dmodal{position:fixed;inset:0;z-index:220;display:none}
+  .dmodal.open{display:block}
+  .dmodal-backdrop{position:absolute;inset:0;background:rgba(10,9,14,.92)}
+  .dmodal-head{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;color:var(--paper)}
+  .dmodal-head .dk{font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:rgba(231,230,224,.65)}
+  .dmodal-head .dt{font-family:var(--font-display);font-weight:700;font-size:17px}
+  .dmodal-close{width:38px;height:38px;border-radius:50%;border:none;background:rgba(231,230,224,.14);color:var(--paper);font-size:15px;cursor:pointer}
+  .dmodal-stage{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;height:calc(100% - 74px);padding:0 70px;gap:14px}
+  .dmodal-stage img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:block;opacity:0;transition:opacity .25s ease}
+  .dmodal-stage img.loaded{opacity:1}
+  .dmodal-arrow{flex:none;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(231,230,224,.4);background:rgba(23,22,29,.4);color:var(--paper);cursor:pointer;display:grid;place-items:center}
+  .dmodal-arrow:disabled{opacity:.25;cursor:default}
+  .dmodal-arrow svg{width:18px;height:18px}
+  .dmodal-count{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:11px;color:rgba(231,230,224,.7);z-index:2}
+  @media(max-width:700px){.dmodal-stage{padding:0 8px}.dmodal-arrow{width:36px;height:36px}}
   /* project lightbox */
   .pmodal{position:fixed;inset:0;z-index:200;display:none}
   .pmodal.open{display:block}
@@ -355,6 +371,15 @@
       <div class="idx">(02) — Decks &amp; strategy</div>
     </div>
     <div class="case-grid">
+      <article class="case r-up" data-kicker="Ticketmaster x NFL" data-title="End of Program Summary" data-desc="EOP for an organic and paid social campaign starring local superfan creators — 2.2M impressions, 34.6K engagements, and an organic engagement rate 1.5x above platform benchmark." data-deck="ticketmaster-nfl-slide1.jpeg,ticketmaster-nfl-slide2.jpeg,ticketmaster-nfl-slide3.jpeg,ticketmaster-nfl-slide4.jpeg,ticketmaster-nfl-slide5.jpeg,ticketmaster-nfl-slide6.jpeg,ticketmaster-nfl-slide7.jpeg,ticketmaster-nfl-slide8.jpeg,ticketmaster-nfl-slide9.jpeg,ticketmaster-nfl-slide10.jpeg,ticketmaster-nfl-slide11.jpeg,ticketmaster-nfl-slide12.jpeg,ticketmaster-nfl-slide13.jpeg,ticketmaster-nfl-slide14.jpeg,ticketmaster-nfl-slide15.jpeg,ticketmaster-nfl-slide16.jpeg,ticketmaster-nfl-slide17.jpeg,ticketmaster-nfl-slide18.jpeg,ticketmaster-nfl-slide19.jpeg,ticketmaster-nfl-slide20.jpeg,ticketmaster-nfl-slide21.jpeg,ticketmaster-nfl-slide22.jpeg,ticketmaster-nfl-slide23.jpeg,ticketmaster-nfl-slide24.jpeg,ticketmaster-nfl-slide25.jpeg,ticketmaster-nfl-slide26.jpeg,ticketmaster-nfl-slide27.jpeg,ticketmaster-nfl-slide28.jpeg,ticketmaster-nfl-slide29.jpeg,ticketmaster-nfl-slide30.jpeg,ticketmaster-nfl-slide31.jpeg,ticketmaster-nfl-slide32.jpeg,ticketmaster-nfl-slide33.jpeg,ticketmaster-nfl-slide34.jpeg,ticketmaster-nfl-slide35.jpeg">
+        <div class="cover"><img src="ticketmaster-nfl-slide-hero.jpeg" alt="Ticketmaster x NFL end of program summary"></div>
+        <div class="body">
+          <div class="k">Ticketmaster x NFL</div>
+          <h3>End of Program Summary</h3>
+          <p>EOP for an organic and paid social campaign starring local superfan creators — 2.2M impressions, 34.6K engagements, and an organic engagement rate 1.5x above platform benchmark.</p>
+          <div class="view">View project <span>→</span></div>
+        </div>
+      </article>
       <article class="case r-up" data-kicker="Ah Po Hot Pot" data-title="Translation &amp; Design" data-desc="Chinese-to-English translation and redesign of digital (WeChat) and in-store menus." data-images="ahpo-menuitems1.jpeg,ahpo-menuitems2.jpeg">
         <div class="cover"><img src="ahpo-heroshot.png" alt="Ah Po Hot Pot menu"></div>
         <div class="body">
@@ -437,6 +462,21 @@
     <p class="pm-desc" id="pm-desc"></p>
     <div class="pmodal-imgs" id="pm-imgs"></div>
   </div>
+</div>
+
+<!-- DECK VIEWER -->
+<div class="dmodal" id="dmodal" aria-hidden="true">
+  <div class="dmodal-backdrop" data-dclose></div>
+  <div class="dmodal-head">
+    <div><div class="dk" id="dm-kicker"></div><div class="dt" id="dm-title"></div></div>
+    <button class="dmodal-close" data-dclose aria-label="Close">&#10005;</button>
+  </div>
+  <div class="dmodal-stage">
+    <button class="dmodal-arrow" id="dm-prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <img id="dm-img" alt="Deck slide">
+    <button class="dmodal-arrow" id="dm-next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+  </div>
+  <div class="dmodal-count" id="dm-count"></div>
 </div>
 
 <!-- FOOTER / CTA -->
@@ -588,6 +628,48 @@
     });
     modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',close));
     document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') close(); });
+  })();
+
+  // deck viewer: click-through slide presentation
+  (function(){
+    const modal=document.getElementById('dmodal'); if(!modal) return;
+    const img=document.getElementById('dm-img');
+    const prevBtn=document.getElementById('dm-prev');
+    const nextBtn=document.getElementById('dm-next');
+    let slides=[], idx=0;
+    function render(){
+      img.classList.remove('loaded');
+      img.src=slides[idx];
+      document.getElementById('dm-count').textContent=(idx+1)+' / '+slides.length;
+      prevBtn.disabled = idx===0;
+      nextBtn.disabled = idx===slides.length-1;
+    }
+    img.addEventListener('load',()=>img.classList.add('loaded'));
+    function open(card){
+      slides=(card.dataset.deck||'').split(',').map(s=>s.trim()).filter(Boolean);
+      idx=0;
+      document.getElementById('dm-kicker').textContent=card.dataset.kicker||'';
+      document.getElementById('dm-title').textContent=card.dataset.title||'';
+      render();
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    }
+    function close(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+    function next(){ if(idx<slides.length-1){ idx++; render(); } }
+    function prev(){ if(idx>0){ idx--; render(); } }
+    document.querySelectorAll('.case[data-deck]').forEach(card=>{
+      card.setAttribute('tabindex','0');
+      card.addEventListener('click',()=>open(card));
+      card.addEventListener('keydown',(e)=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); open(card); } });
+    });
+    nextBtn.addEventListener('click',next);
+    prevBtn.addEventListener('click',prev);
+    modal.querySelectorAll('[data-dclose]').forEach(el=>el.addEventListener('click',close));
+    document.addEventListener('keydown',(e)=>{
+      if(!modal.classList.contains('open')) return;
+      if(e.key==='Escape') close();
+      if(e.key==='ArrowRight') next();
+      if(e.key==='ArrowLeft') prev();
+    });
   })();
 </script>
 </body>
