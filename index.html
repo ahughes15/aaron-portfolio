@@ -156,11 +156,12 @@
   .clip .cap .b{font-family:var(--font-display);font-weight:700;font-size:19px;line-height:1.05}
   .clip .cap .m{font-family:var(--font-mono);font-size:11px;margin-top:6px;opacity:.85}
   .placeholder-tag{position:absolute;bottom:16px;right:16px;font-family:var(--font-mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;background:rgba(255,255,255,.14);padding:3px 6px;border-radius:6px;opacity:.7}
-  .car-nav{display:flex;gap:10px;margin-top:6px}
-  .car-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;cursor:pointer;display:grid;place-items:center;transition:background .2s ease,color .2s ease}
+  .car-btn{position:absolute;top:210px;transform:translateY(-50%);z-index:6;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .2s ease,color .2s ease;box-shadow:0 6px 18px rgba(23,22,29,.16)}
   .car-btn:hover{background:var(--ink);color:var(--paper)}
   .car-btn svg{width:18px;height:18px}
-  .drag-hint{font-family:var(--font-mono);font-size:11px;color:var(--muted);align-self:center;margin-left:6px}
+  .car-prev{left:-4px}
+  .car-next{right:-4px}
+  @media(max-width:520px){.car-btn{width:40px;height:40px}}
 
   /* ---------- CASE STUDIES ---------- */
   .cases{padding:70px 0 80px;background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -325,15 +326,15 @@
     </defs></svg>
     <div class="track" id="track">
       <div class="work-item">
-        <div class="clip"><video src="calebdowns-oikos.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@calebdowns</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
+        <div class="clip"><video src="calebdowns-oikos.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@calebdowns</span></div><div class="cap"><div class="b">Oikos</div><div class="m">On-site Support &amp; Production</div></div></div>
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">2.4M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">1.1M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">6.8%</span></div></div>
       </div>
       <div class="work-item">
-        <div class="clip"><video src="areyouokayshow-instacart.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@areyouokayshow</span></div><div class="cap"><div class="b">Instacart</div><div class="m">Creator partnership</div></div></div>
+        <div class="clip"><video src="areyouokayshow-instacart.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@areyouokayshow</span></div><div class="cap"><div class="b">Instacart</div><div class="m">On-site Support &amp; Production</div></div></div>
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.8M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">920K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">5.4%</span></div></div>
       </div>
       <div class="work-item">
-        <div class="clip"><video src="bentonmcclintock-silk.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bentonmcclintock</span></div><div class="cap"><div class="b">Silk</div><div class="m">Creator partnership</div></div></div>
+        <div class="clip"><video src="bentonmcclintock-silk.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bentonmcclintock</span></div><div class="cap"><div class="b">Silk</div><div class="m">On-site Support &amp; Production</div></div></div>
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">3.1M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">1.4M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">7.2%</span></div></div>
       </div>
       <div class="work-item">
@@ -345,11 +346,11 @@
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">4.2M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">2.3M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">8.0%</span></div></div>
       </div>
       <div class="work-item">
-        <div class="clip"><video src="bodybymark-oikos-1.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
+        <div class="clip"><video src="bodybymark-oikos-1.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">On-site Support &amp; Production</div></div></div>
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.5M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">640K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">5.9%</span></div></div>
       </div>
       <div class="work-item">
-        <div class="clip"><video src="joexfitness-safeway-chefscounter.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@joexfitness</span></div><div class="cap"><div class="b">Safeway</div><div class="m">Chef's Counter</div></div></div>
+        <div class="clip"><video src="joexfitness-safeway-chefscounter.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@joexfitness</span></div><div class="cap"><div class="b">Safeway</div><div class="m">Creator partnership</div></div></div>
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">2.7M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">1.2M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">6.5%</span></div></div>
       </div>
       <div class="work-item">
@@ -365,15 +366,12 @@
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.9M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">810K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">5.7%</span></div></div>
       </div>
       <div class="work-item">
-        <div class="clip"><video src="bodybymark-oikos-2.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">Creator partnership</div></div></div>
+        <div class="clip"><video src="bodybymark-oikos-2.mp4" muted loop autoplay playsinline preload="metadata"></video><div class="veil"></div><div class="top"><span class="badge">@bodybymark</span></div><div class="cap"><div class="b">Oikos</div><div class="m">On-site Support &amp; Production</div></div></div>
         <div class="metrics-card"><div class="metric-row"><span class="ml"><svg><use href="#ic-eye"/></svg><span>Impressions</span></span><span class="mv">1.6M</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-play"/></svg><span>Video Views</span></span><span class="mv">700K</span></div><div class="metric-row"><span class="ml"><svg><use href="#ic-heart"/></svg><span>Eng. Rate</span></span><span class="mv">6.0%</span></div></div>
       </div>
     </div>
-    <div class="car-nav">
-      <button class="car-btn" id="prev" aria-label="Previous clips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-      <button class="car-btn" id="next" aria-label="Next clips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-      <span class="drag-hint">drag →</span>
-    </div>
+    <button class="car-btn car-prev" id="prev" aria-label="Previous clips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button class="car-btn car-next" id="next" aria-label="Next clips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
   </div>
 </section>
 
