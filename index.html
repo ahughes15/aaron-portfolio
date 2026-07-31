@@ -132,7 +132,7 @@
   .platform-row{display:flex;align-items:center;gap:7px;padding-bottom:8px;margin-bottom:1px;border-bottom:1px solid var(--line)}
   .platform-row img{height:20px;width:auto;display:block}
   .platform-row img[alt="TikTok"],.platform-row img[alt="Instagram"]{height:18px}
-  .platform-row img[alt="YouTube"]{height:21px}
+  .platform-row img[alt="YouTube"]{height:19px}
   .metric-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
   .metric-row .ml{display:flex;align-items:center;gap:7px;color:var(--muted);min-width:0}
   .metric-row .ml svg{width:15px;height:15px;flex:none;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -527,9 +527,15 @@
 <script>
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // hero reveal on load
-  window.addEventListener('load', ()=>{ document.querySelector('.hero').classList.add('in'); });
-  if(reduced){ document.querySelector('.hero').classList.add('in'); }
+  // hero reveal — fires as soon as the page structure is ready, not after
+  // every video on the page finishes downloading (which 'load' waits for)
+  function revealHero(){ document.querySelector('.hero').classList.add('in'); }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', revealHero);
+  } else {
+    revealHero();
+  }
+  if(reduced){ revealHero(); }
 
   // scroll reveals
   const io = new IntersectionObserver((entries)=>{
@@ -596,9 +602,12 @@
   });
 
   // "can't scroll past" — headline resists your cursor and rubberbands back home
+  // desktop-only: skipped on touch devices, both because there's no cursor to
+  // sweep across it and because pointermove on touch would otherwise fight scrolling
   (function(){
     const h1 = document.querySelector('.hero h1');
-    if(!h1 || reduced) return;
+    const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if(!h1 || reduced || !hasMouse) return;
     let x=0,y=0,vx=0,vy=0,raf=null,active=false,lastX=null,lastY=null;
     const stiffness=0.075, damping=0.84, push=0.45, maxOff=44;
     function frame(){
