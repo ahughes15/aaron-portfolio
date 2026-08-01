@@ -211,6 +211,8 @@
   .pmodal-imgs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block;opacity:0;transition:opacity .4s ease;background:var(--paper-2)}
   .pmodal-imgs img.loaded{opacity:1}
   .pm-video{position:relative;max-width:340px;margin:0 auto;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--line)}
+  .pm-video.wide{max-width:100%}
+  .pm-video.wide video{aspect-ratio:16/9}
   .pm-video video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
   .pm-playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;cursor:pointer;transition:transform .25s ease}
   .pm-playbtn:hover{transform:translate(-50%,-50%) scale(1.08)}
@@ -429,7 +431,7 @@
         </div>
       </article>
       <article class="case r-up" data-kicker="Poosh x Kardashians" data-title="Celebrity Gift Guide Placement" data-desc="Built a relationship with Poosh and Kourtney Kardashian's team to secure Ulike a spot in her annual Poosh-mas Gift Guide." data-images="kourtneykardashian-poosh.mp4,kimkardashian-poosh.mp4,poosh-slide1.jpeg">
-        <div class="cover"><img src="poosh-hero-slide.jpg" alt="Poosh x Kardashians gift guide placement" loading="lazy" decoding="async" style="object-position:center 40%"></div>
+        <div class="cover" style="background:#0a0a0a"><img src="poosh-hero-slide.jpg" alt="Poosh x Kardashians gift guide placement" loading="lazy" decoding="async" style="object-fit:contain;object-position:center"></div>
         <div class="body">
           <div class="k">Poosh x Kardashians</div>
           <h3>Celebrity Gift Guide Placement</h3>
@@ -437,12 +439,12 @@
           <div class="view">View project <span>→</span></div>
         </div>
       </article>
-      <article class="case r-up" data-kicker="Ulike x PCOS Awareness Association" data-title="Cause-Driven Brand Campaign" data-desc="Ideated and produced a video from concept through final edit, featuring women sharing their journeys with PCOS — one of the first times I experienced the genuine impact content can have on people." data-images="pcos-ulike.mp4,pcos-slide1.jpeg,pcos-slide2.jpeg,pcos-slide3.jpeg">
-        <div class="cover"><img src="pcos-hero-slide.jpg" alt="Ulike x PCOS Awareness Association cause-driven campaign" loading="lazy" decoding="async"></div>
+      <article class="case r-up" data-kicker="Ulike x PCOS Awareness Association" data-title="Cause-Driven Brand Campaign" data-desc="Ideated and produced a video from concept through final edit, featuring women sharing their journeys with PCOS — one of the first times experiencing the genuine impact content can have." data-images="pcos-ulike.mp4,pcos-slide1.jpeg,pcos-slide2.jpeg,pcos-slide3.jpeg">
+        <div class="cover" style="background:#fff"><img src="pcos-hero-slide.jpg" alt="Ulike x PCOS Awareness Association cause-driven campaign" loading="lazy" decoding="async" style="object-fit:contain !important;object-position:center"></div>
         <div class="body">
           <div class="k">Ulike x PCOS Awareness Association</div>
           <h3>Cause-Driven Brand Campaign</h3>
-          <p>Ideated and produced a video from concept through final edit, featuring women sharing their journeys with PCOS — one of the first times I experienced the genuine impact content can have on people.</p>
+          <p>Ideated and produced a video from concept through final edit, featuring women sharing their journeys with PCOS — one of the first times experiencing the genuine impact content can have.</p>
           <div class="view">View project <span>→</span></div>
         </div>
       </article>
@@ -676,6 +678,7 @@
           v.disablePictureInPicture = true;
           v.setAttribute('controlsList','nofullscreen nodownload noremoteplayback noplaybackrate');
           v.setAttribute('disablepictureinpicture','');
+          v.addEventListener('loadedmetadata',()=>{ if(v.videoWidth > v.videoHeight) wrap.classList.add('wide'); });
           const btn=document.createElement('div'); btn.className='pm-playbtn'; btn.setAttribute('role','button'); btn.setAttribute('aria-label','Play video');
           btn.addEventListener('click',()=>{ v.controls=true; v.play().catch(()=>{}); btn.classList.add('hide'); });
           wrap.appendChild(v); wrap.appendChild(btn);
