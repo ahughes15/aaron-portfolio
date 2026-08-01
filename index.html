@@ -692,7 +692,10 @@
       panel.scrollTop=0;
       modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
     }
-    function close(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+    function close(){
+      modal.querySelectorAll('.pm-video video').forEach(v=>{ v.pause(); v.currentTime = 0; });
+      modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
+    }
     document.querySelectorAll('.case[data-images]').forEach(card=>{
       card.setAttribute('tabindex','0');
       card.addEventListener('click',()=>open(card));
