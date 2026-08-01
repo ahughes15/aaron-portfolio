@@ -210,6 +210,12 @@
   .pmodal-imgs{margin-top:24px;display:flex;flex-direction:column;gap:16px}
   .pmodal-imgs img{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);display:block;opacity:0;transition:opacity .4s ease;background:var(--paper-2)}
   .pmodal-imgs img.loaded{opacity:1}
+  .pm-video{position:relative;max-width:340px;margin:0 auto;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--line)}
+  .pm-video video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
+  .pm-playbtn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;cursor:pointer;transition:transform .25s ease}
+  .pm-playbtn:hover{transform:translate(-50%,-50%) scale(1.08)}
+  .pm-playbtn::after{content:"";border-left:18px solid var(--ink);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:4px}
+  .pm-playbtn.hide{display:none}
   @media(max-width:600px){.pmodal-panel{margin:0;max-height:100vh;border-radius:0;padding:24px 18px 32px}}
   @media(max-width:900px){.case-grid{grid-template-columns:1fr;max-width:460px;margin:0 auto}}
 
@@ -419,6 +425,15 @@
           <div class="k">Ulike</div>
           <h3>U.S. Rebrand &amp; Identity System</h3>
           <p>Led a U.S. rebrand to build a distinct identity and a consistent, resonating voice across every touchpoint.</p>
+          <div class="view">View project <span>→</span></div>
+        </div>
+      </article>
+      <article class="case r-up" data-kicker="Poosh x Kardashians" data-title="Celebrity Gift Guide Placement" data-desc="Built a relationship with Poosh and Kourtney Kardashian's team to secure Ulike a spot in her annual Poosh-mas Gift Guide." data-images="kourtneykardashian-poosh.mp4,kimkardashian-poosh.mp4,poosh-slide1.jpeg">
+        <div class="cover"><img src="poosh-hero-slide.jpg" alt="Poosh x Kardashians gift guide placement" loading="lazy" decoding="async"></div>
+        <div class="body">
+          <div class="k">Poosh x Kardashians</div>
+          <h3>Celebrity Gift Guide Placement</h3>
+          <p>Built a relationship with Poosh and Kourtney Kardashian's team to secure Ulike a spot in her annual Poosh-mas Gift Guide.</p>
           <div class="view">View project <span>→</span></div>
         </div>
       </article>
@@ -646,9 +661,19 @@
       document.getElementById('pm-desc').textContent=card.dataset.desc||'';
       imgs.innerHTML='';
       (card.dataset.images||'').split(',').map(s=>s.trim()).filter(Boolean).forEach(src=>{
-        const im=document.createElement('img'); im.src=src; im.alt=card.dataset.title||'project image'; im.loading='lazy';
-        im.addEventListener('load',()=>im.classList.add('loaded'));
-        imgs.appendChild(im);
+        if(/\.mp4$/i.test(src)){
+          const wrap=document.createElement('div'); wrap.className='pm-video';
+          const v=document.createElement('video');
+          v.src=src; v.preload='auto'; v.playsInline=true; v.className='loaded';
+          const btn=document.createElement('div'); btn.className='pm-playbtn'; btn.setAttribute('role','button'); btn.setAttribute('aria-label','Play video');
+          btn.addEventListener('click',()=>{ v.controls=true; v.play().catch(()=>{}); btn.classList.add('hide'); });
+          wrap.appendChild(v); wrap.appendChild(btn);
+          imgs.appendChild(wrap);
+        } else {
+          const im=document.createElement('img'); im.src=src; im.alt=card.dataset.title||'project image'; im.loading='lazy';
+          im.addEventListener('load',()=>im.classList.add('loaded'));
+          imgs.appendChild(im);
+        }
       });
       panel.scrollTop=0;
       modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
