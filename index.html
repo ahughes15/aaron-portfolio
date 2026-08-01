@@ -181,7 +181,7 @@
   .case .body .view span{transition:transform .25s ease}
   .case:hover .body .view span{transform:translateX(5px)}
   .case[data-images]{cursor:pointer}
-  .case .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .case .cover img{width:100%;height:100%;object-fit:cover;display:block;object-position:center}
   /* deck viewer — click-through slide presentation */
   .dmodal{position:fixed;inset:0;z-index:220;display:none}
   .dmodal.open{display:block}
@@ -429,7 +429,7 @@
         </div>
       </article>
       <article class="case r-up" data-kicker="Poosh x Kardashians" data-title="Celebrity Gift Guide Placement" data-desc="Built a relationship with Poosh and Kourtney Kardashian's team to secure Ulike a spot in her annual Poosh-mas Gift Guide." data-images="kourtneykardashian-poosh.mp4,kimkardashian-poosh.mp4,poosh-slide1.jpeg">
-        <div class="cover"><img src="poosh-hero-slide.jpg" alt="Poosh x Kardashians gift guide placement" loading="lazy" decoding="async"></div>
+        <div class="cover"><img src="poosh-hero-slide.jpg" alt="Poosh x Kardashians gift guide placement" loading="lazy" decoding="async" style="object-position:center 40%"></div>
         <div class="body">
           <div class="k">Poosh x Kardashians</div>
           <h3>Celebrity Gift Guide Placement</h3>
@@ -665,6 +665,9 @@
           const wrap=document.createElement('div'); wrap.className='pm-video';
           const v=document.createElement('video');
           v.src=src; v.preload='auto'; v.playsInline=true; v.className='loaded';
+          v.disablePictureInPicture = true;
+          v.setAttribute('controlsList','nofullscreen nodownload noremoteplayback noplaybackrate');
+          v.setAttribute('disablepictureinpicture','');
           const btn=document.createElement('div'); btn.className='pm-playbtn'; btn.setAttribute('role','button'); btn.setAttribute('aria-label','Play video');
           btn.addEventListener('click',()=>{ v.controls=true; v.play().catch(()=>{}); btn.classList.add('hide'); });
           wrap.appendChild(v); wrap.appendChild(btn);
