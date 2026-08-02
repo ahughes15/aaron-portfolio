@@ -696,12 +696,13 @@
           const wrap=document.createElement('div'); wrap.className='pm-video';
           const v=document.createElement('video');
           v.src=src; v.preload='auto'; v.playsInline=true; v.className='loaded';
+          v.controls=true;
           v.disablePictureInPicture = true;
           v.setAttribute('controlsList','nofullscreen nodownload noremoteplayback noplaybackrate');
           v.setAttribute('disablepictureinpicture','');
           v.addEventListener('loadedmetadata',()=>{ if(v.videoWidth > v.videoHeight) wrap.classList.add('wide'); });
           const btn=document.createElement('div'); btn.className='pm-playbtn'; btn.setAttribute('role','button'); btn.setAttribute('aria-label','Play video');
-          btn.addEventListener('click',()=>{ v.controls=true; v.play().catch(()=>{}); btn.classList.add('hide'); });
+          btn.addEventListener('click',()=>{ v.play().catch(()=>{}); btn.classList.add('hide'); });
           wrap.appendChild(v); wrap.appendChild(btn);
           imgs.appendChild(wrap);
         } else {
