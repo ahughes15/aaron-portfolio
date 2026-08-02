@@ -197,6 +197,10 @@
   .dmodal-arrow:disabled{opacity:.25;cursor:default}
   .dmodal-arrow svg{width:18px;height:18px}
   .dmodal-count{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:11px;color:rgba(231,230,224,.7);z-index:2}
+  .dm-links{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:90%}
+  .dm-link{display:inline-flex;align-items:center;gap:6px;padding:7px 13px;border-radius:30px;background:rgba(231,230,224,.95);color:var(--ink);font-family:var(--font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.03em;text-decoration:none;transition:transform .2s ease}
+  .dm-link:hover{transform:translateY(-2px)}
+  .dm-link img{height:13px;width:auto}
   @media(max-width:700px){.dmodal-stage{padding:0 8px}.dmodal-arrow{width:36px;height:36px}}
   /* project lightbox */
   .pmodal{position:fixed;inset:0;z-index:200;display:none}
@@ -412,6 +416,15 @@
           <div class="view">View project <span>→</span></div>
         </div>
       </article>
+      <article class="case r-up" data-kicker="Verizon" data-title="New Business Pitch" data-desc="New business pitch backed by competitive analysis, proposing an out-of-the-box strategy to grow Verizon's customer loyalty program." data-deck="verizon-slide1.jpeg,verizon-slide2.jpeg,verizon-slide3.jpeg,verizon-slide4.jpeg,verizon-slide5.jpeg,verizon-slide6.jpeg,verizon-slide7.jpeg,verizon-slide8.jpeg,verizon-slide9.jpeg,verizon-slide10.jpeg,verizon-slide11.jpeg,verizon-slide12.jpeg,verizon-slide13.jpeg,verizon-slide14.jpeg,verizon-slide15.jpeg,verizon-slide16.jpeg,verizon-slide17.jpeg,verizon-slide18.jpeg,verizon-slide19.jpeg,verizon-slide20.jpeg,verizon-slide21.jpeg,verizon-slide22.jpeg,verizon-slide23.jpeg,verizon-slide24.jpeg,verizon-slide25.jpeg,verizon-slide26.jpeg,verizon-slide27.jpeg,verizon-slide28.jpeg,verizon-slide29.jpeg" data-deck-links='{"3":[{"platform":"instagram","url":"https://www.instagram.com/reels/DZDY_vzh9RQ/","label":"Reel 1"},{"platform":"instagram","url":"https://www.instagram.com/reels/DLYUbZLBl35/","label":"Reel 2"},{"platform":"instagram","url":"https://www.instagram.com/reels/DZ3IgyOyX_5/","label":"Reel 3"}],"9":[{"platform":"instagram","url":"https://www.instagram.com/sidequestz/?hl=en","label":"@sidequestz"}],"10":[{"platform":"tiktok","url":"https://www.tiktok.com/@sidequestz","label":"@sidequestz"},{"platform":"tiktok","url":"https://www.tiktok.com/@luke.kook","label":"@luke.kook"}],"11":[{"platform":"tiktok","url":"https://www.tiktok.com/@boy.throb?lang=en","label":"@boy.throb"}],"12":[{"platform":"tiktok","url":"https://www.tiktok.com/@boy.throb?lang=en","label":"@boy.throb"},{"platform":"tiktok","url":"https://www.tiktok.com/@jake_amazing","label":"@jake_amazing"},{"platform":"instagram","url":"https://www.instagram.com/dev_lemons/?hl=en","label":"@dev_lemons"},{"platform":"youtube","url":"https://www.youtube.com/@devlimes","label":"@devlimes"}],"14":[{"platform":"instagram","url":"https://www.instagram.com/jazzysworldtv/?hl=en","label":"@jazzysworldtv"},{"platform":"tiktok","url":"https://www.tiktok.com/@biggs?lang=en","label":"@biggs"},{"platform":"instagram","url":"https://www.instagram.com/jeremiahoneandfive/?hl=en","label":"@jeremiahoneandfive"}],"16":[{"platform":"tiktok","url":"https://www.tiktok.com/@rossitakes","label":"@rossitakes"},{"platform":"instagram","url":"https://www.instagram.com/samoanraider/reels/","label":"@samoanraider"},{"platform":"instagram","url":"https://www.instagram.com/byabigaillee/reels/?hl=en","label":"@byabigaillee"}],"28":[{"platform":"tiktok","url":"https://www.tiktok.com/@torok.coupon.hunter","label":"@torok.coupon.hunter"},{"platform":"tiktok","url":"https://www.tiktok.com/@cowgirlsosa","label":"@cowgirlsosa"},{"platform":"tiktok","url":"https://www.tiktok.com/@pov_husband","label":"@pov_husband"},{"platform":"instagram","url":"https://www.instagram.com/clarhens/reels/","label":"@clarhens"}]}'>
+        <div class="cover"><img src="verizon-hero-slide.png" alt="Verizon new business pitch" loading="lazy" decoding="async"></div>
+        <div class="body">
+          <div class="k">Verizon</div>
+          <h3>New Business Pitch</h3>
+          <p>New business pitch backed by competitive analysis, proposing an out-of-the-box strategy to grow Verizon's customer loyalty program.</p>
+          <div class="view">View project <span>&#8594;</span></div>
+        </div>
+      </article>
       <article class="case r-up" data-kicker="Ah Po Hot Pot" data-title="Translation &amp; Design" data-desc="Chinese-to-English translation and redesign of digital (WeChat) and in-store menus." data-images="ahpo-menuitems1.jpeg,ahpo-menuitems2.jpeg">
         <div class="cover"><img src="ahpo-heroshot.png" alt="Ah Po Hot Pot menu" loading="lazy" decoding="async"></div>
         <div class="body">
@@ -525,6 +538,7 @@
     <img id="dm-img" alt="Deck slide">
     <button class="dmodal-arrow" id="dm-next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
   </div>
+  <div class="dm-links" id="dm-links"></div>
   <div class="dmodal-count" id="dm-count"></div>
 </div>
 
@@ -711,17 +725,31 @@
     const img=document.getElementById('dm-img');
     const prevBtn=document.getElementById('dm-prev');
     const nextBtn=document.getElementById('dm-next');
-    let slides=[], idx=0;
+    let slides=[], idx=0, links={};
+    const linksEl=document.getElementById('dm-links');
+    function renderLinks(){
+      linksEl.innerHTML='';
+      const items = links[idx+1] || [];
+      items.forEach(item=>{
+        const a=document.createElement('a');
+        a.className='dm-link'; a.href=item.url; a.target='_blank'; a.rel='noopener noreferrer';
+        a.innerHTML = (item.platform ? '<img src="logo-'+item.platform+'.png" alt="">' : '') + '<span>' + (item.label || 'View post') + '</span>';
+        linksEl.appendChild(a);
+      });
+    }
     function render(){
       img.classList.remove('loaded');
       img.src=slides[idx];
       document.getElementById('dm-count').textContent=(idx+1)+' / '+slides.length;
       prevBtn.disabled = idx===0;
       nextBtn.disabled = idx===slides.length-1;
+      renderLinks();
     }
     img.addEventListener('load',()=>img.classList.add('loaded'));
     function open(card){
       slides=(card.dataset.deck||'').split(',').map(s=>s.trim()).filter(Boolean);
+      links = {};
+      try { links = JSON.parse(card.dataset.deckLinks || '{}'); } catch(e) { links = {}; }
       idx=0;
       document.getElementById('dm-kicker').textContent=card.dataset.kicker||'';
       document.getElementById('dm-title').textContent=card.dataset.title||'';
