@@ -695,7 +695,7 @@
         if(/\.mp4$/i.test(src)){
           const wrap=document.createElement('div'); wrap.className='pm-video';
           const v=document.createElement('video');
-          v.src=src; v.preload='auto'; v.playsInline=true; v.className='loaded';
+          v.src=src; v.preload='metadata'; v.playsInline=true; v.className='loaded';
           v.controls=true;
           v.disablePictureInPicture = true;
           v.setAttribute('controlsList','nofullscreen nodownload noremoteplayback noplaybackrate');
