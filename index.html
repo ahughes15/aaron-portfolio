@@ -690,13 +690,15 @@
         if(/\.mp4$/i.test(src)){
           const wrap=document.createElement('div'); wrap.className='pm-video';
           const v=document.createElement('video');
-          v.src=src;
           v.controls=true;
           v.preload='metadata';
           v.playsInline=true;
           v.setAttribute('controlsList','nofullscreen nodownload noremoteplayback noplaybackrate');
           v.disablePictureInPicture=true;
           v.addEventListener('loadedmetadata',()=>{ if(v.videoWidth > v.videoHeight) wrap.classList.add('wide'); });
+          // Cloudflare Pages doesn't serve HTTP range requests, which Chrome needs
+          // to seek. Load the whole file into memory as a blob so seeking works.
+          fetch(src).then(r=>r.blob()).then(b=>{ v.src=URL.createObjectURL(b); }).catch(()=>{ v.src=src; });
           wrap.appendChild(v);
           imgs.appendChild(wrap);
         } else {
@@ -709,7 +711,7 @@
       modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
     }
     function close(){
-      modal.querySelectorAll('.pm-video video').forEach(v=>{ v.pause(); v.currentTime = 0; });
+      modal.querySelectorAll('.pm-video video').forEach(v=>{ v.pause(); if(v.src && v.src.startsWith('blob:')) URL.revokeObjectURL(v.src); });
       modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow='';
     }
     document.querySelectorAll('.case[data-images]').forEach(card=>{
