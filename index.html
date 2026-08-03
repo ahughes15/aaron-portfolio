@@ -769,6 +769,17 @@
     });
     nextBtn.addEventListener('click',next);
     prevBtn.addEventListener('click',prev);
+
+    // touch swipe for mobile: swipe left = next slide, right = previous
+    const stage = modal.querySelector('.dmodal-stage');
+    let tsx=0, tsy=0;
+    stage.addEventListener('touchstart',(e)=>{ tsx=e.changedTouches[0].clientX; tsy=e.changedTouches[0].clientY; },{passive:true});
+    stage.addEventListener('touchend',(e)=>{
+      const dx=e.changedTouches[0].clientX - tsx;
+      const dy=e.changedTouches[0].clientY - tsy;
+      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){ if(dx < 0) next(); else prev(); }
+    },{passive:true});
+
     modal.querySelectorAll('[data-dclose]').forEach(el=>el.addEventListener('click',close));
     document.addEventListener('keydown',(e)=>{
       if(!modal.classList.contains('open')) return;
