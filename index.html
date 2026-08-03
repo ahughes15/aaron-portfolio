@@ -165,6 +165,7 @@
   .car-prev{left:-4px}
   .car-next{right:-4px}
   @media(max-width:520px){.car-btn{width:40px;height:40px}}
+  @media(max-width:700px){.car-prev,.car-next{display:none}}
 
   /* ---------- CASE STUDIES ---------- */
   .cases{padding:70px 0 80px;background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -632,6 +633,13 @@
     clip.addEventListener('mouseleave',()=>{ v.muted=true; });
     clip.addEventListener('click',()=>{ if(v.muted) soloUnmute(v); else v.muted=true; });
   });
+
+  // mute any clip once it scrolls off-screen, so sound never keeps playing for
+  // a video you can no longer see
+  const muteOffscreen = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(!e.isIntersecting) e.target.muted = true; });
+  }, { threshold: 0.35 });
+  allVids.forEach(v=>muteOffscreen.observe(v));
 
   // "can't scroll past" — headline resists your cursor and rubberbands back home
   // desktop-only: skipped on touch devices, both because there's no cursor to
