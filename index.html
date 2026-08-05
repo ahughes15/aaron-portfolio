@@ -650,7 +650,7 @@
     const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     if(!h1 || reduced || !hasMouse) return;
     let x=0,y=0,vx=0,vy=0,raf=null,active=false,lastX=null,lastY=null;
-    const stiffness=0.075, damping=0.84, push=0.45, maxOff=44;
+    const stiffness=0.045, damping=0.88, push=0.28, maxOff=44;
     function frame(){
       vx += -stiffness*x; vx *= damping; x += vx;
       vy += -stiffness*y; vy *= damping; y += vy;
